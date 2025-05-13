@@ -36,17 +36,17 @@ const TestimonialsSection: React.FC = () => {
     {
       name: "Ananya P.",
       initial: "A",
-      quote: ""Starting my day with Gitacall has completely transformed my morning routine. The personalized verses for my zodiac sign are surprisingly relevant to my daily challenges.""
+      quote: "Starting my day with Gitacall has completely transformed my morning routine. The personalized verses for my zodiac sign are surprisingly relevant to my daily challenges."
     },
     {
       name: "Rahul M.",
       initial: "R",
-      quote: ""I love that I can listen to the Gita in Telugu. The voice narration is so clear and soothing. It's like having a spiritual guide right in my pocket.""
+      quote: "I love that I can listen to the Gita in Telugu. The voice narration is so clear and soothing. It's like having a spiritual guide right in my pocket."
     },
     {
       name: "Priya S.",
       initial: "P",
-      quote: ""The sharing feature is brilliant! I've been sending verses to my family group chat, and now we have meaningful spiritual discussions almost every day.""
+      quote: "The sharing feature is brilliant! I've been sending verses to my family group chat, and now we have meaningful spiritual discussions almost every day."
     }
   ];
 
