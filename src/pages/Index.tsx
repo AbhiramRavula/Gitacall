@@ -1,6 +1,8 @@
 
 import React from "react";
 import FeatureSection from "../components/FeatureSection";
+import HowItWorksSection from "../components/HowItWorksSection";
+import TestimonialsSection from "../components/TestimonialsSection";
 
 const Index: React.FC = () => {
   return (
@@ -20,6 +22,12 @@ const Index: React.FC = () => {
       
       {/* Feature Section */}
       <FeatureSection />
+      
+      {/* How It Works Section */}
+      <HowItWorksSection />
+      
+      {/* Testimonials Section */}
+      <TestimonialsSection />
       
       {/* More sections can be added below */}
     </div>
