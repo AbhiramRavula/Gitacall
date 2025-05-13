@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Custom colors for Krishna wisdom app
+				krishna: {
+					orange: '#FF7A00',
+					cream: '#FFF8F0',
+					brown: '#8B4513',
+					text: '#6B5F5F',
+				},
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
