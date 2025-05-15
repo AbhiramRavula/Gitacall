@@ -1,12 +1,48 @@
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Users } from "lucide-react";
 
 const WaitlistCounter: React.FC = () => {
   // This would typically come from an API call
   // For now we'll use a static number for demonstration
-  const waitlistCount = 1247;
+  const targetCount = 1247;
+  const [displayCount, setDisplayCount] = useState(0);
+  
+  useEffect(() => {
+    // Start with zero
+    setDisplayCount(0);
+    
+    // Animation duration in milliseconds
+    const duration = 2000;
+    // Number of steps in the animation
+    const steps = 60;
+    // Time between each step in milliseconds
+    const stepTime = duration / steps;
+    
+    let currentStep = 0;
+    
+    const timer = setInterval(() => {
+      currentStep += 1;
+      
+      // Calculate the current count based on easeOutQuad easing function
+      // for a smoother animation that slows down near the end
+      const progress = currentStep / steps;
+      const easedProgress = 1 - (1 - progress) * (1 - progress);
+      const currentCount = Math.round(easedProgress * targetCount);
+      
+      setDisplayCount(currentCount);
+      
+      // Clear interval when animation is complete
+      if (currentStep >= steps) {
+        clearInterval(timer);
+        setDisplayCount(targetCount);
+      }
+    }, stepTime);
+    
+    // Clean up the interval on component unmount
+    return () => clearInterval(timer);
+  }, [targetCount]);
   
   return (
     <div className="py-12 bg-gradient-to-r from-krishna-orange/10 to-yellow-500/10">
@@ -17,7 +53,7 @@ const WaitlistCounter: React.FC = () => {
           </div>
           
           <h2 className="text-2xl md:text-3xl font-bold text-krishna-brown mb-2">
-            Join <span className="text-krishna-orange">{waitlistCount.toLocaleString()}</span> devotees
+            Join <span className="text-krishna-orange">{displayCount.toLocaleString()}</span> devotees
           </h2>
           
           <p className="text-krishna-text text-lg max-w-md">
