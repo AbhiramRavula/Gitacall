@@ -7,6 +7,7 @@ import PhoneMockup from "../components/PhoneMockup";
 import FeatureSection from "../components/FeatureSection";
 import HowItWorksSection from "../components/HowItWorksSection";
 import TestimonialsSection from "../components/TestimonialsSection";
+import WaitlistCounter from "../components/WaitlistCounter";
 import WaitlistForm from "../components/WaitlistForm";
 import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
@@ -73,6 +74,9 @@ const Index: React.FC = () => {
       
       {/* Testimonials Section */}
       <TestimonialsSection />
+      
+      {/* Waitlist Counter */}
+      <WaitlistCounter />
       
       {/* Waitlist Form */}
       <WaitlistForm />
