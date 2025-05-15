@@ -1,15 +1,26 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Users } from "lucide-react";
 
-const WaitlistCounter: React.FC = () => {
+interface WaitlistCounterProps {
+  triggerAnimation: boolean;
+}
+
+const WaitlistCounter: React.FC<WaitlistCounterProps> = ({ triggerAnimation }) => {
   // This would typically come from an API call
   // For now we'll use a static number for demonstration
   const targetCount = 1247;
   const [displayCount, setDisplayCount] = useState(0);
+  const animationTriggered = useRef(false);
   
   useEffect(() => {
+    // Only run the animation if it's triggered
+    if (!triggerAnimation || animationTriggered.current) return;
+    
+    // Mark that we've started the animation
+    animationTriggered.current = true;
+    
     // Start with zero
     setDisplayCount(0);
     
@@ -42,7 +53,7 @@ const WaitlistCounter: React.FC = () => {
     
     // Clean up the interval on component unmount
     return () => clearInterval(timer);
-  }, [targetCount]);
+  }, [triggerAnimation, targetCount]);
   
   return (
     <div className="py-12 bg-gradient-to-r from-krishna-orange/10 to-yellow-500/10">

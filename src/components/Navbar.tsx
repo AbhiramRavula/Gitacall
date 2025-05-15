@@ -2,7 +2,11 @@
 import React from "react";
 import { Button } from "./ui/button";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  onWaitlistClick: () => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ onWaitlistClick }) => {
   return (
     <nav className="py-4 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto">
       <div className="flex items-center">
@@ -11,7 +15,10 @@ const Navbar: React.FC = () => {
         </div>
         <span className="text-krishna-brown text-xl font-bold">Gitacall</span>
       </div>
-      <Button className="bg-krishna-orange hover:bg-krishna-orange/90 text-white">
+      <Button 
+        className="bg-krishna-orange hover:bg-krishna-orange/90 text-white"
+        onClick={onWaitlistClick}
+      >
         Join Waitlist
       </Button>
     </nav>

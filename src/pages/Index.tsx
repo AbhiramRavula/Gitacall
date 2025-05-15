@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -13,10 +13,25 @@ import FAQSection from "../components/FAQSection";
 import Footer from "../components/Footer";
 
 const Index: React.FC = () => {
+  const [triggerCountAnimation, setTriggerCountAnimation] = useState(false);
+  const waitlistRef = useRef<HTMLDivElement>(null);
+  const waitlistCounterRef = useRef<HTMLDivElement>(null);
+
+  const scrollToWaitlist = () => {
+    if (waitlistRef.current) {
+      waitlistRef.current.scrollIntoView({ behavior: "smooth" });
+      setTriggerCountAnimation(true);
+    }
+  };
+
+  const handleHeroWaitlistClick = () => {
+    scrollToWaitlist();
+  };
+  
   return (
     <div className="min-h-screen bg-[#FFF8F0]">
       {/* Navbar */}
-      <Navbar />
+      <Navbar onWaitlistClick={scrollToWaitlist} />
       
       {/* Hero Section */}
       <div className="py-12 px-4 md:px-8 lg:px-12 max-w-7xl mx-auto">
@@ -55,7 +70,10 @@ const Index: React.FC = () => {
               </div>
             </div>
             
-            <Button className="mt-8 bg-krishna-orange hover:bg-krishna-orange/90 text-white text-lg px-8 py-6 h-auto rounded-full">
+            <Button 
+              className="mt-8 bg-krishna-orange hover:bg-krishna-orange/90 text-white text-lg px-8 py-6 h-auto rounded-full"
+              onClick={handleHeroWaitlistClick}
+            >
               Join the Waitlist
             </Button>
           </div>
@@ -76,10 +94,14 @@ const Index: React.FC = () => {
       <TestimonialsSection />
       
       {/* Waitlist Counter */}
-      <WaitlistCounter />
+      <div ref={waitlistCounterRef}>
+        <WaitlistCounter triggerAnimation={triggerCountAnimation} />
+      </div>
       
       {/* Waitlist Form */}
-      <WaitlistForm />
+      <div ref={waitlistRef}>
+        <WaitlistForm />
+      </div>
       
       {/* FAQ Section */}
       <FAQSection />
