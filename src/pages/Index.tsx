@@ -14,6 +14,7 @@ import Footer from "../components/Footer";
 
 const Index: React.FC = () => {
   const [triggerCountAnimation, setTriggerCountAnimation] = useState(false);
+  const [waitlistCount, setWaitlistCount] = useState(1247);
   const waitlistRef = useRef<HTMLDivElement>(null);
   const waitlistCounterRef = useRef<HTMLDivElement>(null);
 
@@ -26,6 +27,25 @@ const Index: React.FC = () => {
 
   const handleHeroWaitlistClick = () => {
     scrollToWaitlist();
+  };
+  
+  const handleFormSubmit = () => {
+    // Increment the waitlist count by a random number between 1-3
+    const increment = Math.floor(Math.random() * 3) + 1;
+    setWaitlistCount(prevCount => prevCount + increment);
+    
+    // Trigger animation to show the count increasing
+    setTriggerCountAnimation(true);
+    
+    // Scroll to counter to make sure user sees the effect
+    if (waitlistCounterRef.current) {
+      waitlistCounterRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+  
+  const handleCountAnimationComplete = () => {
+    // Reset trigger after animation completes
+    setTriggerCountAnimation(false);
   };
   
   return (
@@ -95,12 +115,16 @@ const Index: React.FC = () => {
       
       {/* Waitlist Counter */}
       <div ref={waitlistCounterRef}>
-        <WaitlistCounter triggerAnimation={triggerCountAnimation} />
+        <WaitlistCounter 
+          triggerAnimation={triggerCountAnimation} 
+          count={waitlistCount}
+          onCountAnimationComplete={handleCountAnimationComplete}
+        />
       </div>
       
       {/* Waitlist Form */}
       <div ref={waitlistRef}>
-        <WaitlistForm />
+        <WaitlistForm onFormSubmit={handleFormSubmit} />
       </div>
       
       {/* FAQ Section */}

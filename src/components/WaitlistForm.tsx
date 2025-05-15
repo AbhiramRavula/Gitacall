@@ -5,7 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "@/hooks/use-toast";
 
-const WaitlistForm: React.FC = () => {
+interface WaitlistFormProps {
+  onFormSubmit: () => void;
+}
+
+const WaitlistForm: React.FC<WaitlistFormProps> = ({ onFormSubmit }) => {
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [language, setLanguage] = useState("english");
@@ -23,6 +27,9 @@ const WaitlistForm: React.FC = () => {
         description: "You've been added to the waitlist. We'll be in touch soon!",
       });
       setIsSubmitting(false);
+      
+      // Call the onFormSubmit prop to notify parent component
+      onFormSubmit();
     }, 1000);
   };
 

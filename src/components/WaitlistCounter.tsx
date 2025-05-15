@@ -5,24 +5,36 @@ import { Users } from "lucide-react";
 
 interface WaitlistCounterProps {
   triggerAnimation: boolean;
+  count: number;
+  onCountAnimationComplete?: () => void;
 }
 
-const WaitlistCounter: React.FC<WaitlistCounterProps> = ({ triggerAnimation }) => {
-  // This would typically come from an API call
-  // For now we'll use a static number for demonstration
-  const targetCount = 1247;
+const WaitlistCounter: React.FC<WaitlistCounterProps> = ({ 
+  triggerAnimation, 
+  count, 
+  onCountAnimationComplete 
+}) => {
+  // This would typically come from an API call or props
+  const targetCount = count;
   const [displayCount, setDisplayCount] = useState(0);
   const animationTriggered = useRef(false);
+  const previousCount = useRef(count);
   
   useEffect(() => {
+    // Reset animation trigger if count changes
+    if (previousCount.current !== count) {
+      animationTriggered.current = false;
+      previousCount.current = count;
+    }
+    
     // Only run the animation if it's triggered
     if (!triggerAnimation || animationTriggered.current) return;
     
     // Mark that we've started the animation
     animationTriggered.current = true;
     
-    // Start with zero
-    setDisplayCount(0);
+    // Start with current display count
+    const startCount = displayCount;
     
     // Animation duration in milliseconds
     const duration = 2000;
@@ -40,7 +52,8 @@ const WaitlistCounter: React.FC<WaitlistCounterProps> = ({ triggerAnimation }) =
       // for a smoother animation that slows down near the end
       const progress = currentStep / steps;
       const easedProgress = 1 - (1 - progress) * (1 - progress);
-      const currentCount = Math.round(easedProgress * targetCount);
+      const countDifference = targetCount - startCount;
+      const currentCount = Math.round(startCount + (easedProgress * countDifference));
       
       setDisplayCount(currentCount);
       
@@ -48,12 +61,16 @@ const WaitlistCounter: React.FC<WaitlistCounterProps> = ({ triggerAnimation }) =
       if (currentStep >= steps) {
         clearInterval(timer);
         setDisplayCount(targetCount);
+        
+        if (onCountAnimationComplete) {
+          onCountAnimationComplete();
+        }
       }
     }, stepTime);
     
     // Clean up the interval on component unmount
     return () => clearInterval(timer);
-  }, [triggerAnimation, targetCount]);
+  }, [triggerAnimation, targetCount, count, displayCount, onCountAnimationComplete]);
   
   return (
     <div className="py-12 bg-gradient-to-r from-krishna-orange/10 to-yellow-500/10">
