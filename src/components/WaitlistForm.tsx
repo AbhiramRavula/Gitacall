@@ -51,13 +51,28 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ onFormSubmit }) => {
           number below, and we'll send you an early-access invitation.
         </p>
         
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form 
+          onSubmit={handleSubmit} 
+          className="space-y-6"
+          name="gitacall-waitlist"
+          method="POST"
+          data-netlify="true"
+        >
+          {/* Hidden fields for Netlify */}
+          <input type="hidden" name="form-name" value="gitacall-waitlist" />
+          <input 
+            type="hidden" 
+            name="subject" 
+            value="New Gitacall Waitlist Signup" 
+          />
+          
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-krishna-text mb-2">
               Your Name
             </label>
             <Input
               id="name"
+              name="name"
               placeholder="Enter your full name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -82,6 +97,7 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ onFormSubmit }) => {
               </Select>
               <Input
                 id="phone"
+                name="phone"
                 className="rounded-l-none"
                 placeholder="Enter your mobile number"
                 value={phoneNumber}
@@ -95,7 +111,7 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ onFormSubmit }) => {
             <label htmlFor="language" className="block text-sm font-medium text-krishna-text mb-2">
               Preferred Language
             </label>
-            <Select value={language} onValueChange={setLanguage}>
+            <Select value={language} onValueChange={setLanguage} name="language">
               <SelectTrigger>
                 <SelectValue placeholder="Select a language" />
               </SelectTrigger>
@@ -111,7 +127,7 @@ const WaitlistForm: React.FC<WaitlistFormProps> = ({ onFormSubmit }) => {
             <label htmlFor="zodiac" className="block text-sm font-medium text-krishna-text mb-2">
               Your Zodiac Sign (Optional)
             </label>
-            <Select value={zodiacSign} onValueChange={setZodiacSign}>
+            <Select value={zodiacSign} onValueChange={setZodiacSign} name="zodiacSign">
               <SelectTrigger>
                 <SelectValue placeholder="Select your zodiac sign" />
               </SelectTrigger>
