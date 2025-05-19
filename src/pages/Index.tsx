@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
@@ -30,9 +29,8 @@ const Index: React.FC = () => {
   };
   
   const handleFormSubmit = () => {
-    // Increment the waitlist count by a random number between 1-3
-    const increment = Math.floor(Math.random() * 3) + 1;
-    setWaitlistCount(prevCount => prevCount + increment);
+    // Increment the waitlist count by exactly 1 (one devotee per form submission)
+    setWaitlistCount(prevCount => prevCount + 1);
     
     // Trigger animation to show the count increasing
     setTriggerCountAnimation(true);
